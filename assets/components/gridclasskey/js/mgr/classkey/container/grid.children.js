@@ -402,6 +402,15 @@ GridClassKey.grid.Children = function(config) {
         , tbar: topBar
         , listeners: {
             render: this.attachDragDropZone
+            ,afteredit: {fn:function(r) {
+                for(var key in r.record.data){
+                        if(key.indexOf('_output') > 0){
+                                var newKey = key.replace('_output','');
+                                r.record.data[key] = r.record.data[newKey];
+                        }
+                }
+                 r.record.commit();
+            },scope:this}
         }
     });
 
